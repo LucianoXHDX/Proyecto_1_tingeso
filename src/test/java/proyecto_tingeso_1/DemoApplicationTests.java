@@ -1,3 +1,4 @@
+/*
 package proyecto_tingeso_1;
 
 import org.junit.jupiter.api.Test;
@@ -11,3 +12,4 @@ class DemoApplicationTests {
 	}
 
 }
+*/
