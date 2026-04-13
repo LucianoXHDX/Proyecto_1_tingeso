@@ -10,7 +10,7 @@ public class KeycloakProvider {
     // setting for conexion with keycloack
     private static final String SERVEL_URL = "http://localhost:9090";
 
-    private static final String REALM_NAME = "spring-client-api-rest";
+    private static final String REALM_NAME = "spring-boot-realm-tingeso";
 
     private static final String REAL_MASTER = "master";
 

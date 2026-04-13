@@ -13,22 +13,33 @@ import org.keycloak.representations.idm.RoleRepresentation;
 import org.keycloak.representations.idm.UserRepresentation;
 import org.springframework.stereotype.Service;
 import proyecto_tingeso_1.DTOS.UserDTO;
-import proyecto_tingeso_1.service.IKeycloackService;
+import proyecto_tingeso_1.service.IKeycloakService;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 
 @Service
 @Slf4j
-public class KeycloakServiceImpl implements IKeycloackService {
+public class KeycloakServiceImpl implements IKeycloakService {
 
-
+    /**
+     *
+     * @return
+     */
     @Override
     public List<UserRepresentation> findAllUser() {
        return KeycloakProvider.getRealResource()
                .users()
                .list();
     }
+
+    /**
+     *
+     * @param username
+     * @return
+     */
 
     @Override
     public List<UserRepresentation> searchUserByUsername(String username) {
@@ -37,6 +48,11 @@ public class KeycloakServiceImpl implements IKeycloackService {
                 .searchByUsername(username, true);
     }
 
+    /**
+     *
+     * @param userDTO
+     * @return
+     */
     @Override
     public String createUser(@NonNull UserDTO userDTO) {
         int status =0;
@@ -103,13 +119,44 @@ public class KeycloakServiceImpl implements IKeycloackService {
 
     }
 
+    /**
+     *
+     * @param userId
+     */
     @Override
     public void deleteUser(String userId) {
 
+        KeycloakProvider.getUserResource()
+                .get(userId)
+                .remove();
+
     }
 
+    /**
+     *
+     * @param userId
+     * @param userDTO
+     */
     @Override
-    public void updateUser(String userId, UserDTO userDTO) {
+    public void updateUser(String userId, @NonNull   UserDTO userDTO) {
+
+        CredentialRepresentation credentialRepresentation = new CredentialRepresentation();
+        credentialRepresentation.setTemporary(false);
+        credentialRepresentation.setType(OAuth2Constants.PASSWORD);
+        credentialRepresentation.setValue(userDTO.getPassword());
+
+        UserRepresentation userRepresentation = new UserRepresentation();
+        userRepresentation.setFirstName(userDTO.getFirstname());
+        userRepresentation.setLastName(userDTO.getLastname());
+        userRepresentation.setEmail(userDTO.getEmail());
+        userRepresentation.setUsername(userDTO.getUsername());
+        userRepresentation.setEnabled(true);
+        userRepresentation.setEmailVerified(true);
+        userRepresentation.setCredentials(Collections.singletonList(credentialRepresentation));
+
+        UserResource userResource = KeycloakProvider.getUserResource().get(userId);
+
+        userResource.update(userRepresentation);
 
     }
 }
