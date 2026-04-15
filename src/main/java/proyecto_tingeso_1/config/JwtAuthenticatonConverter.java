@@ -1,4 +1,4 @@
-package com.api.rest.config;
+package proyecto_tingeso_1.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.convert.converter.Converter;
@@ -50,7 +50,6 @@ public class JwtAuthenticatonConverter implements Converter<Jwt, AbstractAuthent
 
         if (resource.get("roles") == null) return Set.of();
         resourceRoles = (Collection<String>) resource.get("roles");
-
         return resourceRoles.stream()
                 .map(role -> new SimpleGrantedAuthority("ROLE_".concat(role))) // Fix 4: lowercase .map()
                 .toList();

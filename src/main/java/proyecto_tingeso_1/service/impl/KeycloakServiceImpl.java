@@ -1,6 +1,6 @@
 package proyecto_tingeso_1.service.impl;
 
-import com.api.rest.config.util.KeycloakProvider;
+import proyecto_tingeso_1.config.util.KeycloakProvider;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import jakarta.ws.rs.core.Response;
@@ -15,9 +15,7 @@ import org.springframework.stereotype.Service;
 import proyecto_tingeso_1.DTOS.UserDTO;
 import proyecto_tingeso_1.service.IKeycloakService;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 
 @Service
@@ -59,12 +57,20 @@ public class KeycloakServiceImpl implements IKeycloakService {
         UsersResource usersResource = KeycloakProvider.getUserResource();
 
         UserRepresentation userRepresentation = new UserRepresentation();
-        userRepresentation.setFirstName(userDTO.getFirstname());
-        userRepresentation.setLastName(userDTO.getLastname());
-        userRepresentation.setEmail(userDTO.getEmail());
-        userRepresentation.setUsername(userDTO.getUsername());
+        userRepresentation.setUsername(userDTO.getEmail());
+        userRepresentation.setFirstName(userDTO.getFirstName());
+        userRepresentation.setLastName(userDTO.getLastName());
+
         userRepresentation.setEnabled(true);
         userRepresentation.setEmailVerified(true);
+
+        // Atributos custom (rut, teléfono, nacionalidad)
+        Map<String, List<String>> attributes = new HashMap<>();
+        attributes.put("rut", List.of(String.valueOf(userDTO.getRut())));
+        attributes.put("phoneNumber", List.of(userDTO.getPhoneNumber()));
+        attributes.put("nationality", List.of(userDTO.getNationality()));
+        userRepresentation.setAttributes(attributes);
+
 
 
         Response response= usersResource.create(userRepresentation);
@@ -146,17 +152,29 @@ public class KeycloakServiceImpl implements IKeycloakService {
         credentialRepresentation.setValue(userDTO.getPassword());
 
         UserRepresentation userRepresentation = new UserRepresentation();
-        userRepresentation.setFirstName(userDTO.getFirstname());
-        userRepresentation.setLastName(userDTO.getLastname());
-        userRepresentation.setEmail(userDTO.getEmail());
-        userRepresentation.setUsername(userDTO.getUsername());
+        userRepresentation.setUsername(userDTO.getEmail());
+        userRepresentation.setFirstName(userDTO.getFirstName());
+        userRepresentation.setLastName(userDTO.getLastName());
+
         userRepresentation.setEnabled(true);
         userRepresentation.setEmailVerified(true);
+
+        // Atributos custom (rut, teléfono, nacionalidad)
+        Map<String, List<String>> attributes = new HashMap<>();
+        attributes.put("rut", List.of(String.valueOf(userDTO.getRut())));
+        attributes.put("phoneNumber", List.of(userDTO.getPhoneNumber()));
+        attributes.put("nationality", List.of(userDTO.getNationality()));
+        userRepresentation.setAttributes(attributes);
+
+
         userRepresentation.setCredentials(Collections.singletonList(credentialRepresentation));
 
         UserResource userResource = KeycloakProvider.getUserResource().get(userId);
 
         userResource.update(userRepresentation);
+
+
+
 
     }
 }

@@ -8,12 +8,12 @@ import proyecto_tingeso_1.entity.UserEntity;
 import java.util.List;
 
 @Repository
-public interface UserRepository extends JpaRepository<UserEntity, Long> {
+public interface UserRepository extends JpaRepository<UserEntity, String> {
 
     UserEntity findByRut(String rut); // ya aplicada
-    boolean existsByRut(String rut); 
+    boolean existsByRut(String rut);
 
-    UserEntity findByEmail(String email);
+    UserEntity findByEmail(String email); // aplicada
     boolean existsByEmail(String email);
 
 

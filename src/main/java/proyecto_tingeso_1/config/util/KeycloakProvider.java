@@ -1,4 +1,4 @@
-package com.api.rest.config.util;
+package proyecto_tingeso_1.config.util;
 
 import org.jboss.resteasy.client.jaxrs.internal.ResteasyClientBuilderImpl;
 import org.keycloak.admin.client.Keycloak;

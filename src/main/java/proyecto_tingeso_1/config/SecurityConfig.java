@@ -1,4 +1,4 @@
-package com.api.rest.config;
+package proyecto_tingeso_1.config;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
