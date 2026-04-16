@@ -16,15 +16,15 @@ import java.util.Set;
 public class UserEntity {
     @Id
     @Column(unique = true, nullable = false)
-    private String rut;
+    private String rut;//listo
 
-    private String firstName;
-    private String lastName;
-    private String email;
-    private String password;
-    private String nationality;
-    private String phoneNumber;
-    private boolean statusActive;
+    private String firstName;//listp
+    private String lastName;//listp
+    private String email;//listp
+    private String password;//listp
+    private String nationality;//The minimum length
+    private String phoneNumber; // ready
+    private boolean statusActive; // como mrda lo desactivo
 
     @ElementCollection
     private Set<String> role;

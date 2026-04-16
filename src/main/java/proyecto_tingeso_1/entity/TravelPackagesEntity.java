@@ -8,7 +8,8 @@ import proyecto_tingeso_1.Enums.EnumSeason;
 import proyecto_tingeso_1.Enums.EnumStatusPackage;
 
 import java.time.LocalDate;
-import java.util.Date;
+
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -41,6 +42,9 @@ public class TravelPackagesEntity {
 
     @Enumerated(EnumType.STRING)
     private EnumStatusPackage statusPackage;
+
+    @OneToMany(mappedBy = "idBooking")
+    private List<BookingEntity> bookingEntities;
 
 
 
