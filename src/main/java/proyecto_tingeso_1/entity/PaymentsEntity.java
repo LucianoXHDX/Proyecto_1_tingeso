@@ -17,7 +17,7 @@ import java.util.Date;
 
 public class PaymentsEntity{
     @Id
-    @Column(unique = true,nullable = true)
+    @Column(unique = true,nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long idPayments;
 

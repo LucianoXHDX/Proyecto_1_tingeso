@@ -20,6 +20,7 @@ public class BookingEntity {
     private long idBooking;
 
     private String emailClientBooking;
+    @ManyToMany
     private List<UserEntity> passengerBooking;
     private String preferencePassengerBooking;
     private Integer DiscountedPriceBooking;
@@ -30,7 +31,7 @@ public class BookingEntity {
     @JoinColumn(name = "idPackage")
     private TravelPackagesEntity travelPackagesEntity;
 
-    @OneToOne(mappedBy = "idBooking")
+    @OneToOne(mappedBy = "bookingEntity")
     private PaymentsEntity paymentsEntity;
 
 

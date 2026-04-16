@@ -20,6 +20,7 @@ import java.util.Set;
 public class TravelPackagesEntity {
     @Id
     @Column(unique = true, nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long idPackage;
 
     private String namePackage;
@@ -43,7 +44,7 @@ public class TravelPackagesEntity {
     @Enumerated(EnumType.STRING)
     private EnumStatusPackage statusPackage;
 
-    @OneToMany(mappedBy = "idBooking")
+    @OneToMany(mappedBy = "travelPackagesEntity")
     private List<BookingEntity> bookingEntities;
 
 
