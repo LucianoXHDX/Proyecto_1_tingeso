@@ -21,8 +21,7 @@ public class UserEntity {
     private String firstName;//listp
     private String lastName;//listp
     private String email;//listp
-    private String password;//listp
-    private String nationality;//The minimum length
+    private String nationality;
     private String phoneNumber; // ready
     private boolean statusActive; // como mrda lo desactivo
 

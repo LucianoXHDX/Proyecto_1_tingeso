@@ -1,4 +1,13 @@
 package proyecto_tingeso_1.Enums;
 
-public class EnumTravelTypePackage {
+public enum EnumTravelTypePackage {
+
+    NATIONAL,
+    INTERNATIONAL,
+    CRUISE,
+    TOUR,
+    GROUP,
+    INDIVIDUAL
+
+
 }

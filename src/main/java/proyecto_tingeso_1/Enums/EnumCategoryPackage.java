@@ -1,4 +1,9 @@
 package proyecto_tingeso_1.Enums;
 
-public class EnumCategoryPackage {
+public enum EnumCategoryPackage {
+    ADVENTURE,
+    ALLiNCLUSIVE,
+    FAMILY,
+    ROMATIC
+
 }
