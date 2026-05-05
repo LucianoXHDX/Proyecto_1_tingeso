@@ -22,7 +22,7 @@ public class BookingResponseDTO {
 
     private Integer originalPriceBooking;
     private Integer discountedPriceBooking;
-    private Integer discountPercentage;
+    private double discountPercentage;
     private String discountTypeBooking;
 
 

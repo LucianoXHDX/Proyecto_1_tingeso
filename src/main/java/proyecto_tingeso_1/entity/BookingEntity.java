@@ -22,25 +22,25 @@ public class BookingEntity {
 
     private String emailClientBooking;
 
-    // Simpler than @ManyToMany — you already receive ruts as strings from the frontend
+
     @ElementCollection
     @CollectionTable(name = "booking_passenger_ruts", joinColumns = @JoinColumn(name = "id_booking"))
     @Column(name = "passenger_rut")
     private List<String> passengerRuts;
 
-    private Integer numberOfPassengers; // derived from passengerRuts.size(), but stored for queries
+    private Integer numberOfPassengers;
 
     private String preferencePassengerBooking;
 
-    private Integer originalPriceBooking;   // price before discounts (pricePackage * numberOfPassengers)
-    private Integer discountedPriceBooking; // final price after discounts
-    private Integer discountPercentage;     // total % applied
-    private String discountTypeBooking;     // e.g. "GROUP, FREQUENT_CLIENT"
+    private Integer originalPriceBooking;
+    private Integer discountedPriceBooking;
+    private double discountPercentage;
+    private String discountTypeBooking;
 
-    private Boolean paidBooking;            // true once payment is confirmed
+    private Boolean paidBooking;
 
     @Enumerated(EnumType.STRING)
-    private EnumStatusBooking bookingStatus; // PENDING, CONFIRMED, CANCELLED, EXPIRED
+    private EnumStatusBooking bookingStatus;
 
     @ManyToOne
     @JoinColumn(name = "id_package")

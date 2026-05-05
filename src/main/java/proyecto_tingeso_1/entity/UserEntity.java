@@ -23,7 +23,7 @@ public class UserEntity {
     private String email;//listp
     private String nationality;
     private String phoneNumber; // ready
-    private boolean statusActive; // como mrda lo desactivo
+    private boolean statusActive;
 
     @ElementCollection
     private Set<String> role;

@@ -9,17 +9,17 @@ import java.util.List;
 @Service
 public interface BookingService {
     // CRUD
-
+    // alredy implement
     BookingResponseDTO createBooking(BookingRequestDTO requestDTO);
-
+    // ready implent
     BookingResponseDTO getBookingById(Long id);
-
+    // ready implemnted
     List<BookingResponseDTO> getAllBooking();
+    // ready
+    BookingResponseDTO getBookingByEmail(String email);
 
-    List<BookingResponseDTO> getBookingByEmail(String email);
-
-    BookingResponseDTO updateBooking(Long id,BookingRequestDTO requestDTO);
-
+    // BookingResponseDTO updateBooking(Long id,BookingRequestDTO requestDTO);
+    // ready implemnte
     void deleteBooking(Long id);
 
 

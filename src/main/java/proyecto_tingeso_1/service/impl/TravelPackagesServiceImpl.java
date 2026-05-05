@@ -56,7 +56,6 @@ public class TravelPackagesServiceImpl implements TravelPackagesService {
     @Override
     public void deleteById(Long id) {
         if (!travelPackagesRepository.existsById(id)) {
-            //first need know if this package exists
             throw new RuntimeException("TravelPackage no encontrado con id: " + id);
         }
         travelPackagesRepository.deleteById(id);
