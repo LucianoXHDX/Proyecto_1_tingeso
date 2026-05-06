@@ -20,10 +20,4 @@ public class BookingRequestDTO {
     private String preferencePassangerBooking;
     private Long travelPackageId; // u will extract it from front, when usser select a package
 
-
-
-
-
-
-
 }

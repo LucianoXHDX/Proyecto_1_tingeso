@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import proyecto_tingeso_1.DTOS.TravelPackagesDTO;
 import proyecto_tingeso_1.entity.TravelPackagesEntity;
@@ -12,7 +14,7 @@ import proyecto_tingeso_1.service.TravelPackagesService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/travel-packages")
+@RequestMapping("/api/v1/travel-packages")
 public class TravelPackagesController {
 
     private final TravelPackagesService travelPackagesService;
@@ -37,7 +39,6 @@ public class TravelPackagesController {
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
-
     // POST /api/travel-packages → crea nuevo
     @PostMapping
     @PreAuthorize("hasRole('admin_client_role')")

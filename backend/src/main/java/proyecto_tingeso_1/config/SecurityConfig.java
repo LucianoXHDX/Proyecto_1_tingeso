@@ -1,4 +1,4 @@
-package edu.mtisw.payrollbackend.config;
+package proyecto_tingeso_1.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -37,11 +37,15 @@ public class SecurityConfig {
         JwtAuthenticationConverter converter = new JwtAuthenticationConverter();
         converter.setJwtGrantedAuthoritiesConverter(jwt -> {
             Collection<GrantedAuthority> authorities = new ArrayList<>();
-            Map<String, Object> realmAccess = (Map<String, Object>) jwt.getClaims().get("realm_access");
 
-            if (realmAccess != null && realmAccess.get("roles") instanceof List<?>) {
-                List<?> roles = (List<?>) realmAccess.get("roles");
-                roles.forEach(r -> authorities.add(new SimpleGrantedAuthority("ROLE_" + r)));
+            // Leer de resource_access -> spring-client-api-rest -> roles
+            Map<String, Object> resourceAccess = (Map<String, Object>) jwt.getClaims().get("resource_access");
+            if (resourceAccess != null) {
+                Map<String, Object> clientAccess = (Map<String, Object>) resourceAccess.get("spring-client-api-rest");
+                if (clientAccess != null && clientAccess.get("roles") instanceof List<?>) {
+                    List<?> roles = (List<?>) clientAccess.get("roles");
+                    roles.forEach(r -> authorities.add(new SimpleGrantedAuthority("ROLE_" + r)));
+                }
             }
 
             return authorities;
