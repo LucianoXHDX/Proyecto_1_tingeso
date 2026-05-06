@@ -10,5 +10,5 @@ public interface BookingRepository extends JpaRepository<BookingEntity,Long> {
     // W this repo I have getters and setter
 
 
-    Optional<BookingEntity> findByEmail(String email);
+ //   Optional<BookingEntity> findByEmail(String email);
 }

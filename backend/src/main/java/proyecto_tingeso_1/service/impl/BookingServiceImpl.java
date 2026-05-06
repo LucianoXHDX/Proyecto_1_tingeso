@@ -47,13 +47,13 @@ public class BookingServiceImpl implements BookingService {
         return responseDTO;
     }
 
-    @Override
-    public BookingResponseDTO getBookingByEmail(String email){
-        BookingEntity bookingEntity = bookingRepository.findByEmail( email)
-                .orElseThrow(()-> new RuntimeException("no hay una resrva asociada a ese email"));
-        BookingResponseDTO responseDTO = this.mapToDTO(bookingEntity);
-        return responseDTO;
-    }
+    //@Override
+  //  public BookingResponseDTO getBookingByEmail(String email){
+    //    BookingEntity bookingEntity = bookingRepository.findByEmail( email)
+      //          .orElseThrow(()-> new RuntimeException("no hay una resrva asociada a ese email"));
+        //BookingResponseDTO responseDTO = this.mapToDTO(bookingEntity);
+        //return responseDTO;
+    //}
     @Override
     public void deleteBooking(Long id){
         if(!bookingRepository.existsById(id)){
