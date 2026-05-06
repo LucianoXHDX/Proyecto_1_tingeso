@@ -16,7 +16,7 @@ public class UserService {
     public UserEntity getUserByRut(String rut){
         return userRepository.findByRut(rut);
     }
-
+// create user make for kecycloack
     public UserEntity findByEmail(String email){
         return userRepository.findByEmail(email);
     }
