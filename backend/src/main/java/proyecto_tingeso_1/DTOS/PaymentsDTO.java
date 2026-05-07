@@ -13,8 +13,7 @@ public class PaymentsDTO {
 
 
 
-    private long idPayments; // I will leave this, later I can give it to the user to query of her paymets
-
+    private long idPayments;   // I will leave this, later I can give it to the user to query of her paymets
     private Integer CardCodePayment;
     private Date cardExpirationPayment;
     private String nameCardPayment;

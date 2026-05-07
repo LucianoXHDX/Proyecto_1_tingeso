@@ -39,13 +39,27 @@ public class PaymentsServiceImpl implements PaymentsService {
     //these need make work
     @Override
     public PaymentsEntity update(Long id, PaymentsDTO dto) {
-        return null;
+        PaymentsEntity payment = paymentsRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("No hay pagos con ese id " ));
+        payment.setCardCodePayment(dto.getCardCodePayment());
+        payment.setCardExpirationPayment(dto.getCardExpirationPayment());
+        payment.setNameCardPayment(dto.getNameCardPayment());
+        payment.setCVVPayment(dto.getCVVPayment());
+        payment.setApprovedPayment(dto.isApprovedPayment());
+        return paymentsRepository.save(payment);
     }
     //these need make work
 
     @Override
     public PaymentsEntity create(PaymentsDTO dto){
-        return null;
+
+            PaymentsEntity payment = new PaymentsEntity();
+            payment.setCardCodePayment(dto.getCardCodePayment());
+            payment.setCardExpirationPayment(dto.getCardExpirationPayment());
+            payment.setNameCardPayment(dto.getNameCardPayment());
+            payment.setCVVPayment(dto.getCVVPayment());
+            payment.setApprovedPayment(dto.isApprovedPayment());
+            return paymentsRepository.save(payment);
     }
 
 }
