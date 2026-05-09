@@ -36,7 +36,7 @@ public class TravelPackagesController {
     @PreAuthorize("hasRole('user_client_role') or hasRole('admin_client_role')")
     public ResponseEntity<TravelPackagesEntity> getById(@PathVariable Long id) {
         return travelPackagesService.findById(id)
-                .map(ResponseEntity::ok)
+                .map(travelPackage -> ResponseEntity.ok(travelPackage))
                 .orElse(ResponseEntity.notFound().build());
     }
     // POST /api/travel-packages → crea nuevo

@@ -3,6 +3,7 @@ package proyecto_tingeso_1.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+import proyecto_tingeso_1.DTOS.UserDTO;
 import proyecto_tingeso_1.entity.UserEntity;
 
 import java.util.List;
@@ -15,6 +16,8 @@ public interface UserRepository extends JpaRepository<UserEntity, String> {
 
     UserEntity findByEmail(String email); // aplicada
     boolean existsByEmail(String email);
+
+    UserEntity create(UserDTO userDTO);
 
 
     List<UserEntity> findAllByNationality(String nationality);

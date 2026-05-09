@@ -13,17 +13,16 @@ import java.util.Set;
 
 
 public class UserDTO {
-    private Long rut;
 
+    private String rut;
     private String firstName;
     private String lastName;
-    private String email; // en algunos puntos sera el username
+    private String email;
 
     private String phoneNumber;
     private String nationality;
 
-    private String password;
-    private Set<String> roles;
+
 
 
 
