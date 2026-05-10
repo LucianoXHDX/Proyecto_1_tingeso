@@ -22,8 +22,8 @@ public class UserController {
         return ResponseEntity.ok(userService.findAll());
     }
 
-    @GetMapping("/rut/{rut}")
-    //@PreAuthorize("hasRole('user_client_role') or hasRole('admin_client_role')")
+   @GetMapping("/rut/{rut}")
+   
     @PreAuthorize("hasRole('admin_client_role')")
     public ResponseEntity<UserEntity> getUserByRut(@PathVariable String rut) {
         UserEntity user = userService.getUserByRut(rut);

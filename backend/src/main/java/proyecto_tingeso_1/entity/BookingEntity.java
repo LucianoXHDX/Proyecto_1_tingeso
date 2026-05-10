@@ -1,5 +1,7 @@
 package proyecto_tingeso_1.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -44,8 +46,10 @@ public class BookingEntity {
 
     @ManyToOne
     @JoinColumn(name = "id_package")
+    @JsonIgnore
     private TravelPackagesEntity travelPackagesEntity;
 
     @OneToOne(mappedBy = "bookingEntity")
+    @JsonBackReference
     private PaymentsEntity paymentsEntity;
 }

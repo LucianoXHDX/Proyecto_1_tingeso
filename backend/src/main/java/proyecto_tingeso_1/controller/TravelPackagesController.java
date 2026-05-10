@@ -24,14 +24,14 @@ public class TravelPackagesController {
         this.travelPackagesService = travelPackagesService;
     }
 
-    // GET /api/travel-packages → lista todos
+
     @GetMapping
-    @PreAuthorize("hasRole('user_client_role') or hasRole('admin_client_role')")
+    // this will be the only one with public access
     public ResponseEntity<List<TravelPackagesEntity>> getAll() {
         return ResponseEntity.ok(travelPackagesService.findAll());
     }
 
-    // GET /api/travel-packages/{id} → uno por id
+
     @GetMapping("/{id}")
     @PreAuthorize("hasRole('user_client_role') or hasRole('admin_client_role')")
     public ResponseEntity<TravelPackagesEntity> getById(@PathVariable Long id) {
@@ -39,7 +39,7 @@ public class TravelPackagesController {
                 .map(travelPackage -> ResponseEntity.ok(travelPackage))
                 .orElse(ResponseEntity.notFound().build());
     }
-    // POST /api/travel-packages → crea nuevo
+
     @PostMapping
     @PreAuthorize("hasRole('admin_client_role')")
     public ResponseEntity<TravelPackagesEntity> create(@RequestBody TravelPackagesDTO dto) {
@@ -47,7 +47,7 @@ public class TravelPackagesController {
         return ResponseEntity.status(HttpStatus.CREATED).body(created);
     }
 
-    // PUT /api/travel-packages/{id} → actualiza
+
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('admin_client_role')")
     public ResponseEntity<TravelPackagesEntity> update(
@@ -60,7 +60,7 @@ public class TravelPackagesController {
         }
     }
 
-    // DELETE /api/travel-packages/{id} → elimina
+
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('admin_client_role')")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
