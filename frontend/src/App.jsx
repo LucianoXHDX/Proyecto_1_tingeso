@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import Navbar from './components/Navbar';
-import TravelPackagesPage from './pages/TravelPackagesPage';
-import BookingsPage from './pages/BookingsPage';
+
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 

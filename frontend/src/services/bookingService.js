@@ -1,10 +1,19 @@
-import api from './APIConfig.js';
+import httpClient from "../http-common";
 
-const bookingService = {
-    getAll: () => api.get('/bookings'),
-    getById: (id) => api.get(`/bookings/${id}`),
-    create: (bookingData) => api.post('/bookings', bookingData),
-    delete: (id) => api.delete(`/bookings/${id}`),
+const getAll = () => {
+    return httpClient.get('/bookings');
 };
 
-export default bookingService;
+const create = data => {
+    return httpClient.post("/bookings", data);
+};
+
+const get = id => {
+    return httpClient.get(`/bookings/${id}`);
+};
+
+const remove = id => {
+    return httpClient.delete(`/bookings/${id}`);
+};
+
+export default {getAll,create,get,remove};
