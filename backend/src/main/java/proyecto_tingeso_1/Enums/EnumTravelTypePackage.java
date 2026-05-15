@@ -2,12 +2,8 @@ package proyecto_tingeso_1.Enums;
 
 public enum EnumTravelTypePackage {
 
-    NATIONAL,
-    INTERNATIONAL,
-    CRUISE,
+    NATIONAL,//NACIONAL
+    INTERNATIONAL,// INTERNACIONAL
+    CRUISE,//CRUSERO
     TOUR,
-    GROUP,
-    INDIVIDUAL
-
-
 }

@@ -1,8 +1,14 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import travelPackagesService from "../services/travelPackagesService";
+import {useKeycloak} from "@react-keycloak/web";
+
 
 const TravelPackages = () => {
+    //this its or manage of keyclak rples
+    const { keycloak } = useKeycloak();
+    const isAdmin = keycloak.tokenParsed?.resource_access?.['spring-client-api-rest']?.roles?.includes('admin_client_role');
+    // end manage roles
     const navigate = useNavigate();
     const [packages, setPackages] = useState([]);
 
@@ -10,8 +16,12 @@ const TravelPackages = () => {
         travelPackagesService
             .getAll()
             .then((response) => {
-                console.log("Paquetes cargados:", response.data);
-                setPackages(response.data);
+                const availablePackages = response.data.filter(
+                    (travelPackage) =>
+                        travelPackage.availableSlotsPackage > 0
+                        && travelPackage.statusPackage === "DISPONIBLE"
+                );
+                setPackages(availablePackages);
             })
             .catch((error) => {
                 console.log("Error al cargar paquetes:", error);
@@ -46,11 +56,11 @@ const TravelPackages = () => {
                 <tr>
                     <th>Nombre</th>
                     <th>Destino</th>
-                    <th>Precio por pesona</th>
-                    <th>Cupos disponibles </th>
+                    <th>Precio por persona</th>
+                    <th>Cupos disponibles</th>
                     <th>Estado</th>
                     <th>Temporada</th>
-                    <th>Operaciones</th>
+                    <th>Accion</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -64,11 +74,19 @@ const TravelPackages = () => {
                         <td>{pkg.enumSeason}</td>
                         <td>
                             <button
-                                className="btn btn-danger btn-sm ms-2"
+                                className="btn btn-info btn-sm"
                                 onClick={() => navigate(`/travel-packages/${pkg.idPackage}`)}
                             >
-                                Obtener mas informacion
+                                Ver más
                             </button>
+                            {isAdmin && (
+                                <button
+                                    className="btn btn-danger btn-sm ms-2"
+                                    onClick={() => handleDelete(pkg.idPackage)}
+                                >
+                                    Eliminar
+                                </button>
+                            )}
                         </td>
                     </tr>
                 ))}

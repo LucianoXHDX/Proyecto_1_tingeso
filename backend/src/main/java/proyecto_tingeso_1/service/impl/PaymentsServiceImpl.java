@@ -4,24 +4,30 @@ package proyecto_tingeso_1.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import proyecto_tingeso_1.DTOS.PaymentsDTO;
+import proyecto_tingeso_1.Enums.EnumStatusBooking;
+import proyecto_tingeso_1.entity.BookingEntity;
 import proyecto_tingeso_1.entity.PaymentsEntity;
+import proyecto_tingeso_1.repository.BookingRepository;
 import proyecto_tingeso_1.repository.PaymentsRepository;
 import proyecto_tingeso_1.service.PaymentsService;
 
-import java.util.Date;
+
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class PaymentsServiceImpl implements PaymentsService {
-    PaymentsRepository paymentsRepository;
 
+
+
+    private final PaymentsRepository paymentsRepository;
+    private final BookingRepository bookingRepository;
     @Autowired
-
-    public PaymentsServiceImpl(PaymentsRepository paymentsRepository){
-        this.paymentsRepository=paymentsRepository;
+    public PaymentsServiceImpl(PaymentsRepository paymentsRepository,
+                               BookingRepository bookingRepository) {
+        this.paymentsRepository = paymentsRepository;
+        this.bookingRepository = bookingRepository;
     }
-
     @Override
     public List<PaymentsEntity> findAll(){
         return this.paymentsRepository.findAll();
@@ -51,15 +57,29 @@ public class PaymentsServiceImpl implements PaymentsService {
     //these need make work
 
     @Override
-    public PaymentsEntity create(PaymentsDTO dto){
+    public PaymentsEntity create(PaymentsDTO dto) {
+        // search for bookinh
+        BookingEntity booking = bookingRepository.findById(dto.getBookingId())
+                .orElseThrow(() -> new RuntimeException("Reserva no encontrada"));
 
-            PaymentsEntity payment = new PaymentsEntity();
-            payment.setCardCodePayment(dto.getCardCodePayment());
-            payment.setCardExpirationPayment(dto.getCardExpirationPayment());
-            payment.setNameCardPayment(dto.getNameCardPayment());
-            payment.setCVVPayment(dto.getCVVPayment());
-            payment.setApprovedPayment(dto.isApprovedPayment());
-            return paymentsRepository.save(payment);
+        // make entity
+        PaymentsEntity payment = new PaymentsEntity();
+        payment.setCardCodePayment(dto.getCardCodePayment());
+        payment.setCardExpirationPayment(dto.getCardExpirationPayment());
+        payment.setNameCardPayment(dto.getNameCardPayment());
+        payment.setCVVPayment(dto.getCVVPayment());
+        payment.setApprovedPayment(true);  // its for aproved apyment
+        payment.setBookingEntity(booking); // fk of booking
+
+        PaymentsEntity saved = paymentsRepository.save(payment);
+
+        //this its for update booking
+        booking.setPaidBooking(true);
+        booking.setBookingStatus(EnumStatusBooking.CONFIRMED);
+        booking.setPaymentsEntity(saved);
+        bookingRepository.save(booking);
+
+        return saved;
     }
 
 }

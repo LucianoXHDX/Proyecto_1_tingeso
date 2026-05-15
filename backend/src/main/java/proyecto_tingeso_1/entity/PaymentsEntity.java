@@ -22,7 +22,7 @@ public class PaymentsEntity{
     private long idPayments;
 
     private Integer CardCodePayment;
-    private Date cardExpirationPayment;
+    private String cardExpirationPayment;
     private String nameCardPayment;
     private Integer CVVPayment;
     private boolean approvedPayment;

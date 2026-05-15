@@ -6,6 +6,7 @@ import TravelPackageDetail from './components/TravelPackageDetail.jsx';
 import BookingForm from './components/BookingForm.jsx';
 import Navbar from './components/Navbar.jsx';
 import PaymentForm from "./components/PaymentForm.jsx";
+import BookingCheckOut from './components/BookingCheckOut.jsx';
 
 function App() {
     const { keycloak, initialized } = useKeycloak();
@@ -38,6 +39,7 @@ function App() {
 
                     <Route path="/payments/new/:bookingId" element={<PrivateRoute element={<PaymentForm />} />} />
 
+                    <Route path="/bookings/:id" element={<PrivateRoute element={<BookingCheckOut />} />} />
                 </Routes>
             </div>
         </Router>

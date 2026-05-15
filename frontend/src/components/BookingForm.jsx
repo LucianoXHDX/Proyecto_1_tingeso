@@ -4,6 +4,9 @@ import { useKeycloak } from '@react-keycloak/web';
 import bookingService from '../services/bookingService';
 
 const BookingForm = () => {
+
+
+
     const { id } = useParams();
     const navigate = useNavigate();
     const { keycloak } = useKeycloak();
@@ -21,6 +24,34 @@ const BookingForm = () => {
     };
 
     const handleSubmit = async () => {
+
+        const rutsArray = form.passangerRuts
+            .split(',')
+            .map((rut) => rut.trim())
+            .filter(Boolean); //this it for remove whitespace
+
+        const numberPassengers = parseInt(form.numberOfPassanger);
+        if(form.numberOfPassanger<=0){
+            setError("debes agreagar al menos un pasajero")
+            return
+        }
+        if (rutsArray.length === 0) {
+            setError("no haz agregado ningun rut");
+            return;
+        }
+        const invalidRut = rutsArray.find((rut) => {
+            // find it s used to loop through an array and find the first element that does not satisfy the condition.
+            return rut.length < 9 || rut.length > 10;
+        });
+
+        if (invalidRut) {
+            setError("Tienes un rut no valido, revisa");
+            return;
+        }
+        if (rutsArray.length !== numberPassengers) {
+            setError("La cantidad de RUTs no coincide con el número de pasajeros");
+            return;
+        }
         setError(null);
         setSaving(true);
         try {
@@ -32,7 +63,7 @@ const BookingForm = () => {
                 travelPackageId: parseInt(id),
             };
             const response = await bookingService.create(payload);
-            navigate(`/payments/new/${response.data.idBooking}`);
+            navigate(`/bookings/${response.data.idBooking}`);
         } catch (err) {
             if (err.response?.status === 500) {
                 setError('La cantidad de pasajeros supera los cupos disponibles.');
@@ -107,7 +138,7 @@ const BookingForm = () => {
                     className="btn btn-primary"
                     onClick={handleSubmit}
                     disabled={saving}>
-                    {saving ? 'Procesando...' : 'Confirmar reserva'}
+                    {saving ? 'Procesando...' : 'continuar con la cotizacion'}
                 </button>
                 <button className="btn btn-secondary" onClick={() => navigate(-1)}>
                     Cancelar
