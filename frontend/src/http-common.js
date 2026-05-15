@@ -1,14 +1,8 @@
 import axios from "axios";
 import keycloak from "./services/keycloak";
 
-const payrollBackendServer = import.meta.env.VITE_PAYROLL_BACKEND_SERVER;
-const payrollBackendPort = import.meta.env.VITE_PAYROLL_BACKEND_PORT;
-
-console.log(payrollBackendServer)
-console.log(payrollBackendPort)
-
 const api = axios.create({
-    baseURL: `http://${payrollBackendServer}:${payrollBackendPort}`,
+    baseURL: '/api/v1',
     headers: {
         "Content-Type": "application/json"
     }

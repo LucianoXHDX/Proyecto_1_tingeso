@@ -31,7 +31,7 @@ public class BookingController {
     }
 
     @PostMapping
-    @PreAuthorize("hasRole('admin_client_role')")
+    @PreAuthorize("hasRole('user_client_role') or hasRole('admin_client_role')")
     public ResponseEntity<BookingResponseDTO> createBooking(@RequestBody BookingRequestDTO bookingRequestDTO) {
         BookingResponseDTO created = bookingService.createBooking(bookingRequestDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(created);

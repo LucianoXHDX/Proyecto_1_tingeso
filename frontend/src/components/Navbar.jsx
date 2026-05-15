@@ -1,93 +1,55 @@
 import React from 'react';
-import { useAuth } from '../context/AuthContext';
-import keycloak from '../services/Keycloak';
+import { useNavigate } from 'react-router-dom';
+import { useKeycloak } from '@react-keycloak/web';
 
-const Navbar = ({ currentPage, setCurrentPage }) => {
-    const { isAuthenticated, userInfo, logout, isAdmin } = useAuth();
+const Navbar = () => {
+    const { keycloak } = useKeycloak();
+    const navigate = useNavigate();
+
+    const isAuthenticated = keycloak.authenticated;
+    const username = keycloak.tokenParsed?.preferred_username;
+    const roles = keycloak.tokenParsed?.resource_access?.['spring-client-api-rest']?.roles || [];
+    const isAdmin = roles.includes('admin_client_role');
 
     return (
-        <nav style={{
-            background: 'linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)',
-            borderBottom: '2px solid #e94560',
-            padding: '0.8rem 1.5rem',
-        }}>
-            <div className="container-fluid d-flex justify-content-between align-items-center">
+        <nav className="navbar navbar-dark bg-dark px-3">
+            <span className="navbar-brand" style={{ cursor: 'pointer' }} onClick={() => navigate('/')}>
+                ✈ Tingeso Travel
+            </span>
 
-                {/* Logo */}
-                <span
-                    className="fw-bold"
-                    style={{ color: '#e94560', fontSize: '1.5rem', cursor: 'pointer', letterSpacing: '2px' }}
-                    onClick={() => setCurrentPage('packages')}
-                >
-          ✈ TINGESO TRAVEL
-        </span>
+            <div className="d-flex gap-2 me-auto ms-3">
+                {isAuthenticated && (
+                    <>
+                        <button className="btn btn-link text-white text-decoration-none" onClick={() => navigate('/')}>
+                            Paquetes
+                        </button>
+                        {isAdmin && (
+                            <button className="btn btn-link text-white text-decoration-none" onClick={() => navigate('/bookings')}>
+                                Reservas
+                            </button>
+                        )}
+                    </>
+                )}
+            </div>
 
-                {/* Links de navegación — solo visibles si está autenticado */}
-                <div className="d-flex gap-3">
-                    {isAuthenticated && (
-                        <>
-                            <button
-                                className="btn btn-link"
-                                style={{ color: currentPage === 'packages' ? '#e94560' : '#ccc', textDecoration: 'none' }}
-                                onClick={() => setCurrentPage('packages')}
-                            >
-                                Paquetes
-                            </button>
-                            {isAdmin() && (
-                                <button
-                                    className="btn btn-link"
-                                    style={{ color: currentPage === 'bookings' ? '#e94560' : '#ccc', textDecoration: 'none' }}
-                                    onClick={() => setCurrentPage('bookings')}
-                                >
-                                    Reservas
-                                </button>
-                            )}
-                        </>
-                    )}
-                </div>
-
-                {/* Botones derecha */}
-                <div className="d-flex align-items-center gap-2">
-                    {isAuthenticated ? (
-                        // Usuario logueado
-                        <>
-              <span style={{ color: '#ccc', fontSize: '0.9rem' }}>
-                👤 {userInfo?.username}
-                  {isAdmin() && (
-                      <span className="badge ms-2" style={{ background: '#e94560', fontSize: '0.7rem' }}>
-                    ADMIN
-                  </span>
-                  )}
-              </span>
-                            <button
-                                className="btn btn-sm"
-                                style={{ border: '1px solid #e94560', color: '#e94560', background: 'transparent' }}
-                                onClick={logout}
-                            >
-                                Cerrar sesión
-                            </button>
-                        </>
-                    ) : (
-                        // Usuario NO logueado
-                        <>
-                            <button
-                                className="btn btn-sm"
-                                style={{ border: '1px solid #ccc', color: '#ccc', background: 'transparent' }}
-                                onClick={() => keycloak.login()}
-                            >
-                                Iniciar sesión
-                            </button>
-                            <button
-                                className="btn btn-sm"
-                                style={{ background: '#e94560', color: '#fff', border: 'none' }}
-                                onClick={() => keycloak.register()}
-                            >
-                                Registrarse
-                            </button>
-                        </>
-                    )}
-                </div>
-
+            <div className="d-flex align-items-center gap-2">
+                {isAuthenticated ? (
+                    <>
+                        <span className="text-white">👤 {username} {isAdmin && <span className="badge bg-danger">ADMIN</span>}</span>
+                        <button className="btn btn-outline-light btn-sm" onClick={() => keycloak.logout({ redirectUri: 'http://localhost:5173' })}>
+                            Cerrar sesión
+                        </button>
+                    </>
+                ) : (
+                    <>
+                        <button className="btn btn-outline-light btn-sm" onClick={() => keycloak.login()}>
+                            Iniciar sesión
+                        </button>
+                        <button className="btn btn-danger btn-sm" onClick={() => keycloak.register()}>
+                            Registrarse
+                        </button>
+                    </>
+                )}
             </div>
         </nav>
     );

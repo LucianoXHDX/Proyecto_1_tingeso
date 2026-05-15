@@ -8,7 +8,7 @@ const create = data => {
     return httpClient.post("/payments", data);
 };
 
-const get = id => {
+const getById = id => {
     return httpClient.get(`/payments/${id}`);
 };
 
@@ -21,4 +21,4 @@ const update = (id, data) => {
     return httpClient.put(`/travel-payments/${id}`, data);
 };
 
-export default {getAll,get,create,update,remove};
+export default {getAll,getById,create,update,remove};
