@@ -68,7 +68,7 @@ const TravelPackages = () => {
                     <tr key={pkg.idPackage}>
                         <td>{pkg.namePackage}</td>
                         <td>{pkg.destinationPackage}</td>
-                        <td>${pkg.pricePackage?.toLocaleString()}</td>
+                        <td>${pkg.pricePackage.toLocaleString()}</td>
                         <td>{pkg.availableSlotsPackage}</td>
                         <td>{pkg.statusPackage}</td>
                         <td>{pkg.enumSeason}</td>
