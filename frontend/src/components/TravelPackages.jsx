@@ -36,7 +36,7 @@ const TravelPackages = () => {
         const confirmDelete = window.confirm("¿Seguro que desea eliminar este paquete?");
         if (confirmDelete) {
             travelPackagesService
-                .delete(id)
+                .remove(id)
                 .then(() => {
                     console.log("Paquete eliminado");
                     init();

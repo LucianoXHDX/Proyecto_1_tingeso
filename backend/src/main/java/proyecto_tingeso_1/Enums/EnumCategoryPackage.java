@@ -4,6 +4,10 @@ public enum EnumCategoryPackage {
     ADVENTURE,
     ALLiNCLUSIVE,
     FAMILY,
-    ROMATIC
+    ROMATIC,
+    AVENTURA,
+    ALL_INCLUSIVE,
+    FAMILIAR,
+    SALIDA_ROMANTICA
 
 }

@@ -8,6 +8,7 @@ import Navbar from './components/Navbar.jsx';
 import PaymentForm from "./components/PaymentForm.jsx";
 import BookingCheckOut from './components/BookingCheckOut.jsx';
 import AdminPage from './components/AmdinPage.jsx';
+import PackageForm from "./components/PackageForm.jsx";
 
 function App() {
     const { keycloak, initialized } = useKeycloak();
@@ -59,6 +60,13 @@ function App() {
                     {/*this its only for admin */}
                     <Route path="/admin" element={<AdminRoute element={<AdminPage />} />} />
 
+                    <Route path="/admin/packages/new" element={<AdminRoute element={<PackageForm />} />} />
+
+
+
+
+
+                    {/*<Route path="/admin/packages/delete" element={<AdminRoute element={<DeletePackage />} />} />*/}
                 </Routes>
             </div>
         </Router>

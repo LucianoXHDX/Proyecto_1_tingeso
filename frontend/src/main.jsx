@@ -4,6 +4,7 @@ import App from './App.jsx'
 import './index.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { ReactKeycloakProvider } from "@react-keycloak/web";
+import 'bootstrap-icons/font/bootstrap-icons.css';
 import keycloak from "./services/keycloak.js";
 
 ReactDOM.createRoot(document.getElementById('root')).render(

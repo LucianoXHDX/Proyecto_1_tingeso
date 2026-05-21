@@ -20,7 +20,7 @@ const AdminPage = () =>{
                 <div className="col-md-6">
                     <div className="card h-100 text-card p-4"
                          style={{cursor: 'pointer'}}
-                         onclick={() => navigate('/admin/package/new')}>
+                         onClick={() => navigate('/admin/packages/new')}>
                         <div className="card-body">
                             <LuPackagePlus />
                             <h5 className="card-titile mt-2">Crea un nuevo paquete</h5>
@@ -33,7 +33,7 @@ const AdminPage = () =>{
             <div className="col-md-6">
                 <div className="card h-100 text-card p-4"
                      style={{cursor: 'pointer'}}
-                     onclick={() => navigate('/admin/package/delete')}>
+                     onClick={() => navigate('/admin/packages/delete')}>
                     <div className="card-body">
                         <MdDeleteForever />
                         <h5 className="card-title mt-2">Elimina un paquete</h5>

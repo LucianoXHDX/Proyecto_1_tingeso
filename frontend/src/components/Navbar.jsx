@@ -20,12 +20,12 @@ const Navbar = () => {
             <div className="d-flex gap-2 me-auto ms-3">
                 {isAuthenticated && (
                     <>
-                        <button className="btn btn-link text-white text-decoration-none" onClick={() => navigate('/')}>
+                        <button className= "btn btn-outline-light btn-sm" onClick={() => navigate('/')}>
                             Paquetes
                         </button>
                         {isAdmin && (
-                            <button className="btn btn-link text-white text-decoration-none" onClick={() => navigate('/bookings')}>
-                                Reservas
+                            <button className="btn btn-outline-light btn-sm" onClick={() => navigate('/admin')}>
+                                Panel de administracion
                             </button>
                         )}
                     </>
@@ -35,7 +35,10 @@ const Navbar = () => {
             <div className="d-flex align-items-center gap-2">
                 {isAuthenticated ? (
                     <>
-                        <span className="text-white">👤 {username} {isAdmin && <span className="badge bg-danger">ADMIN</span>}</span>
+                        <span className="text-white">
+                            <i className="bi bi-person-circle"></i>
+                            {username}
+                            {isAdmin && <span className="badge bg-danger">ADMIN</span>}</span>
                         <button className="btn btn-outline-light btn-sm" onClick={() => keycloak.logout({ redirectUri: 'http://localhost:5173' })}>
                             Cerrar sesión
                         </button>
