@@ -166,9 +166,9 @@ const PackageForm = () => {
                 <select className="form-select" name="travelType"
                         value={form.travelType} onChange={handleChange}>
                     <option value="">Selecciona  un tipo de viaje</option>
-                    <option value="NATIONAL">NAcional</option>
-                    <option value="INTERNATIONAL">internacional</option>
-                    <option value="CRUISE">crusero</option>
+                    <option value="NACIONAL">NAcional</option>
+                    <option value="INTERNACIONAL">internacional</option>
+                    <option value="CRUSERO">crusero</option>
                     <option value="TOUR">tour</option>
 
                 </select>
@@ -178,10 +178,10 @@ const PackageForm = () => {
                 <select className="form-select" name="categoryPackage"
                         value={form.categoryPackage} onChange={handleChange}>
                     <option value="">Selecciona una categoria</option>
-                    <option value="ROMATIC">Salida Romantica</option>
-                    <option value="ADVENTURE">Aventura</option>
-                    <option value="ALLiNCLUSIVE">Todo incluido</option>
-                    <option value="FAMILY">Familiar</option>
+                    <option value="SALIDA_ROMANTICA">Salida Romantica</option>
+                    <option value="AVENTURA">Aventura</option>
+                    <option value="ALL_INCLUSIVE">Todo incluido</option>
+                    <option value="FAMILIAR">Familiar</option>
 
                 </select>
 
@@ -190,10 +190,10 @@ const PackageForm = () => {
                     <select className="form-select" name="enumSeason"
                             value={form.enumSeason} onChange={handleChange}>
                         <option value="">Selecciona una temporada</option>
-                        <option value="WINTER">Invierno</option>
-                        <option value="SUMMER">Verano</option>
-                        <option value="SPRING">Primavera</option>
-                        <option value="FALL">Otoño</option>
+                        <option value="INVIERNO">Invierno</option>
+                        <option value="VERANO">Verano</option>
+                        <option value="PRIMAVERA">Primavera</option>
+                        <option value="OTOÑO">Otoño</option>
                     </select>
                 </div>
 

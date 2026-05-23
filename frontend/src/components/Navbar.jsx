@@ -37,7 +37,10 @@ const Navbar = () => {
                     <>
                         <span className="text-white">
                             <i className="bi bi-person-circle"></i>
+                            {/*u need change this route when u make the profile*/}
+                             <button className="btn btn-outline-light btn-sm" onClick={() => navigate('/profile')}>
                             {username}
+                             </button>
                             {isAdmin && <span className="badge bg-danger">ADMIN</span>}</span>
                         <button className="btn btn-outline-light btn-sm" onClick={() => keycloak.logout({ redirectUri: 'http://localhost:5173' })}>
                             Cerrar sesión
