@@ -43,5 +43,11 @@ public class BookingController {
         bookingService.deleteBooking(id);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/my-bookings")
+    @PreAuthorize("hasRole('user_client_role') or hasRole('admin_client_role')")
+    public ResponseEntity<List<BookingResponseDTO>> getMyBookings(@RequestParam String email) {
+        return ResponseEntity.ok(bookingService.getBookingsByEmail(email));
+    }
 }
 

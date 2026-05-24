@@ -47,13 +47,16 @@ public class BookingServiceImpl implements BookingService {
         return responseDTO;
     }
 
-    //@Override
-  //  public BookingResponseDTO getBookingByEmail(String email){
-    //    BookingEntity bookingEntity = bookingRepository.findByEmail( email)
-      //          .orElseThrow(()-> new RuntimeException("no hay una resrva asociada a ese email"));
-        //BookingResponseDTO responseDTO = this.mapToDTO(bookingEntity);
-        //return responseDTO;
-    //}
+    @Override
+    public List<BookingResponseDTO> getBookingsByEmail(String email) {
+        List<BookingEntity> bookings = bookingRepository.findByEmailClientBooking(email);
+        return bookings.stream()
+                .map(this::mapToDTO)
+                .collect(Collectors.toList());
+    }
+
+
+
     @Override
     public void deleteBooking(Long id){
         if(!bookingRepository.existsById(id)){
@@ -79,11 +82,6 @@ public class BookingServiceImpl implements BookingService {
                 throw new RuntimeException("La cantidad de pasajeros supera los cupos disponibles.");
             }
 
-            travelPackages.setAvailableSlotsPackage(travelPackages.getAvailableSlotsPackage() - numberOfPassenger);
-            if(travelPackages.getAvailableSlotsPackage() == 0){
-                travelPackages.setStatusPackage(EnumStatusPackage.AGOTADO);
-            }
-            travelPackagesRepository.save(travelPackages);
 
             BookingEntity bookingEntity = new BookingEntity();
             int originalPrice = travelPackages.getPricePackage() * numberOfPassenger;
@@ -134,6 +132,8 @@ public class BookingServiceImpl implements BookingService {
 
         }
 
+
+
     // Entity → bookingResponseDTO mapper
     private BookingResponseDTO mapToDTO(BookingEntity entity) {
         BookingResponseDTO dto = new BookingResponseDTO();
@@ -164,6 +164,7 @@ public class BookingServiceImpl implements BookingService {
 
         return dto;
     }
+
 
 
 

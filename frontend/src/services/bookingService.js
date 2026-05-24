@@ -15,5 +15,6 @@ const get = id => {
 const remove = id => {
     return httpClient.delete(`/bookings/${id}`);
 };
-
-export default {getAll,create,get,remove};
+const getByEmail = (email) => {
+    return httpClient.get(`/bookings/my-bookings?email=${email}`);}
+export default {getAll,create,get,remove,getByEmail};

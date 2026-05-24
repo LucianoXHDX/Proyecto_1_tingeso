@@ -16,8 +16,7 @@ public interface BookingService {
     // ready implemnted
     List<BookingResponseDTO> getAllBooking();
     // ready
-    // BookingResponseDTO getBookingByEmail(String email);
-
+    List<BookingResponseDTO> getBookingsByEmail(String email);
     // BookingResponseDTO updateBooking(Long id,BookingRequestDTO requestDTO);
     // ready implemnte
     void deleteBooking(Long id);

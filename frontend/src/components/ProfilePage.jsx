@@ -19,7 +19,7 @@ const ProfilePage = () => {
 
             <button className="btn btn-primary"
                     onClick={() => window.open(`http://localhost:9090/realms/spring-boot-realm-tingeso/account`, '_blank')}>
-                Editar perfil en Keycloak
+                Editar perfil
             </button>
         </div>
     );

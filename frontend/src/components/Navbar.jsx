@@ -31,6 +31,9 @@ const Navbar = () => {
                     </>
                 )}
             </div>
+            <button className="btn btn-outline-light btn-sm" onClick={() => navigate('/my-bookings')}>
+                Mis Reservas
+            </button>
 
             <div className="d-flex align-items-center gap-2">
                 {isAuthenticated ? (

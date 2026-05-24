@@ -10,6 +10,8 @@ import BookingCheckOut from './components/BookingCheckOut.jsx';
 import AdminPage from './components/AmdinPage.jsx';
 import PackageForm from "./components/PackageForm.jsx";
 import ProfilePage from './components/ProfilePage.jsx';
+import MyBookingsPage from './components/MyBookingsPage.jsx';
+
 
 function App() {
     const { keycloak, initialized } = useKeycloak();
@@ -59,6 +61,9 @@ function App() {
                     <Route path="/bookings/:id" element={<PrivateRoute element={<BookingCheckOut />} />} />
 
                     <Route path="/profile" element={<PrivateRoute element={<ProfilePage />} />} />
+
+
+                    <Route path="/my-bookings" element={<PrivateRoute element={<MyBookingsPage />} />} />
 
                     {/*this its only for admin */}
                     <Route path="/admin" element={<AdminRoute element={<AdminPage />} />} />
