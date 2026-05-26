@@ -45,7 +45,7 @@ const Navbar = () => {
                             {username}
                              </button>
                             {isAdmin && <span className="badge bg-danger">ADMIN</span>}</span>
-                        <button className="btn btn-outline-light btn-sm" onClick={() => keycloak.logout({ redirectUri: 'http://localhost:5173' })}>
+                        <button className="btn btn-outline-light btn-sm" onClick={() => keycloak.logout({ redirectUri: 'http://localhost:8070' })}>
                             Cerrar sesión
                         </button>
                     </>
