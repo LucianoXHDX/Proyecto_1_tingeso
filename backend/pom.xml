@@ -106,6 +106,7 @@
 			
 
 		</plugins>
+		<finalName>tingeso-backend</finalName>
 	</build>
 
 </project>

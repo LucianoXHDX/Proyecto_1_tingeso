@@ -12,7 +12,6 @@ import PackageForm from "./components/PackageForm.jsx";
 import ProfilePage from './components/ProfilePage.jsx';
 import MyBookingsPage from './components/MyBookingsPage.jsx';
 
-
 function App() {
     const { keycloak, initialized } = useKeycloak();
 
@@ -69,9 +68,6 @@ function App() {
                     <Route path="/admin" element={<AdminRoute element={<AdminPage />} />} />
 
                     <Route path="/admin/packages/new" element={<AdminRoute element={<PackageForm />} />} />
-
-
-
 
 
                     {/*<Route path="/admin/packages/delete" element={<AdminRoute element={<DeletePackage />} />} />*/}

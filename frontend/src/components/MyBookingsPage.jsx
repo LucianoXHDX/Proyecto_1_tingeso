@@ -49,8 +49,9 @@ const MyBookingsPage = () => {
                         <td>
                             <button
                                 className="btn btn-info btn-sm"
-                                onClick={() => navigate(`/bookings/${b.idBooking}`)}
-                            > Ver mas</button>
+                                onClick={() => navigate(`/travel-packages/${b.travelPackageId}`)}>
+                                    Ver mas
+                                    </button>
                             </td>
                     </tr>
                 ))}

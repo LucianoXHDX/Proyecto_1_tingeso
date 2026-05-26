@@ -4,10 +4,10 @@ import travelPackagesService from "../services/travelPackagesService";
 import {useKeycloak} from "@react-keycloak/web";
 
 
-const TravelPackages = () => {
+const AdminTravelPackagePage = () => {
     //this its or manage of keyclak rples
     const { keycloak } = useKeycloak();
-
+    const isAdmin = keycloak.tokenParsed?.resource_access?.['spring-client-api-rest']?.roles?.includes('admin_client_role');
     // end manage roles
     const navigate = useNavigate();
     const [packages, setPackages] = useState([]);
@@ -79,7 +79,14 @@ const TravelPackages = () => {
                             >
                                 Ver más
                             </button>
-
+                            {isAdmin && (
+                                <button
+                                    className="btn btn-danger btn-sm ms-2"
+                                    onClick={() => handleDelete(pkg.idPackage)}
+                                >
+                                    Eliminar
+                                </button>
+                            )}
                         </td>
                     </tr>
                 ))}
@@ -89,4 +96,4 @@ const TravelPackages = () => {
     );
 };
 
-export default TravelPackages;
+export default AdminTravelPackagePage;
