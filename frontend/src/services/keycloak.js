@@ -1,6 +1,6 @@
 import Keycloak from 'keycloak-js';
 
-// Limpiar ISS duplicado de la URL al cargar
+// this its for bug in url
 if (window.location.hash) {
     const hash = window.location.hash.substring(1);
     const issValues = hash.match(/iss=[^&]*/g);
