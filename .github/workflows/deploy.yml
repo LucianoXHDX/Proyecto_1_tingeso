@@ -1,0 +1,179 @@
+name: Tingeso Travel - CI/CD Docker Hub
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  workflow_dispatch:
+
+jobs:
+  # ── BACKEND ───────────────────────────────────────────────────
+  backend-build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v4
+
+      - name: Configurar Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+          cache: maven
+
+      - name: Generar JAR sin tests
+        run: |
+          cd backend
+          mvn clean package -DskipTests
+
+      - name: Subir JAR como artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: tingeso-backend-jar
+          path: backend/target/*.jar
+
+  backend-test:
+    runs-on: ubuntu-latest
+    needs: backend-build
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v4
+
+      - name: Configurar Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+          cache: maven
+
+      - name: Ejecutar pruebas unitarias
+        run: |
+          cd backend
+          mvn test
+
+  backend-docker-build:
+    runs-on: ubuntu-latest
+    needs: backend-test
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v4
+
+      - name: Descargar JAR generado
+        uses: actions/download-artifact@v4
+        with:
+          name: tingeso-backend-jar
+          path: backend/target
+
+      - name: Construir imagen Docker
+        run: docker build -t lucianoxhdx/tingeso-backend:latest ./backend
+
+      - name: Guardar imagen Docker como archivo
+        run: docker save lucianoxhdx/tingeso-backend:latest -o backend_image.tar
+
+      - name: Subir imagen Docker como artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: tingeso-backend-docker-image
+          path: backend_image.tar
+
+  backend-docker-push:
+    runs-on: ubuntu-latest
+    needs: backend-docker-build
+    steps:
+      - name: Descargar imagen Docker
+        uses: actions/download-artifact@v4
+        with:
+          name: tingeso-backend-docker-image
+          path: .
+
+      - name: Cargar imagen Docker
+        run: docker load -i backend_image.tar
+
+      - name: Login en Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Subir imagen a Docker Hub
+        run: docker push lucianoxhdx/tingeso-backend:latest
+
+  # ── FRONTEND ──────────────────────────────────────────────────
+  frontend-docker-build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Crear .env del frontend
+        run: |
+          cat > frontend/.env << EOF
+          VITE_KEYCLOAK_URL=${{ secrets.VITE_KEYCLOAK_URL }}
+          VITE_KEYCLOAK_REALM=${{ secrets.VITE_KEYCLOAK_REALM }}
+          VITE_KEYCLOAK_CLIENT_ID=${{ secrets.VITE_KEYCLOAK_CLIENT_ID }}
+          VITE_APP_URL=${{ secrets.VITE_APP_URL }}
+          EOF
+
+      - name: Build Vite
+        run: |
+          cd frontend
+          npm install
+          npm run build
+
+      - name: Construir imagen Docker Frontend
+        run: docker build -t lucianoxhdx/tingeso-frontend:latest ./frontend
+
+      - name: Guardar imagen Docker como archivo
+        run: docker save lucianoxhdx/tingeso-frontend:latest -o frontend_image.tar
+
+      - name: Subir imagen Docker como artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: tingeso-frontend-docker-image
+          path: frontend_image.tar
+
+  frontend-docker-push:
+    runs-on: ubuntu-latest
+    needs: frontend-docker-build
+    steps:
+      - name: Descargar imagen Docker
+        uses: actions/download-artifact@v4
+        with:
+          name: tingeso-frontend-docker-image
+          path: .
+
+      - name: Cargar imagen Docker
+        run: docker load -i frontend_image.tar
+
+      - name: Login en Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Subir imagen a Docker Hub
+        run: docker push lucianoxhdx/tingeso-frontend:latest
+
+  # ── DEPLOY EN EC2 ─────────────────────────────────────────────
+  deploy:
+    runs-on: ubuntu-latest
+    needs: [frontend-docker-push, backend-docker-push]
+    steps:
+      - name: Deploy en EC2
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            cd ~
+            docker pull lucianoxhdx/tingeso-frontend:latest
+            docker pull lucianoxhdx/tingeso-backend:latest
+            docker compose rm -sf frontend1 frontend2 frontend3
+            docker compose rm -sf backend1 backend2 backend3
+            docker compose up -d frontend1 frontend2 frontend3
+            docker compose up -d backend1 backend2 backend3

@@ -3,8 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import { useKeycloak } from '@react-keycloak/web';
 
 const Navbar = () => {
-    const { keycloak } = useKeycloak();
+    const { keycloak, initialized } = useKeycloak();
     const navigate = useNavigate();
+
+    if (!initialized) return null;
 
     const isAuthenticated = keycloak.authenticated;
     const username = keycloak.tokenParsed?.preferred_username;
@@ -16,11 +18,10 @@ const Navbar = () => {
             <span className="navbar-brand" style={{ cursor: 'pointer' }} onClick={() => navigate('/')}>
                 ✈ Tingeso Travel
             </span>
-
             <div className="d-flex gap-2 me-auto ms-3">
                 {isAuthenticated && (
                     <>
-                        <button className= "btn btn-outline-light btn-sm" onClick={() => navigate('/')}>
+                        <button className="btn btn-outline-light btn-sm" onClick={() => navigate('/')}>
                             Paquetes
                         </button>
                         {isAdmin && (
@@ -34,18 +35,17 @@ const Navbar = () => {
             <button className="btn btn-outline-light btn-sm" onClick={() => navigate('/my-bookings')}>
                 Mis Reservas
             </button>
-
             <div className="d-flex align-items-center gap-2">
                 {isAuthenticated ? (
                     <>
                         <span className="text-white">
                             <i className="bi bi-person-circle"></i>
-                            {/*u need change this route when u make the profile*/}
-                             <button className="btn btn-outline-light btn-sm" onClick={() => navigate('/profile')}>
-                            {username}
-                             </button>
-                            {isAdmin && <span className="badge bg-danger">ADMIN</span>}</span>
-                        <button className="btn btn-outline-light btn-sm" onClick={() => keycloak.logout({ redirectUri: 'http://localhost:8070' })}>
+                            <button className="btn btn-outline-light btn-sm" onClick={() => navigate('/profile')}>
+                                {username}
+                            </button>
+                            {isAdmin && <span className="badge bg-danger">ADMIN</span>}
+                        </span>
+                        <button className="btn btn-outline-light btn-sm" onClick={() => keycloak.logout({ redirectUri: import.meta.env.VITE_APP_URL })}>
                             Cerrar sesión
                         </button>
                     </>

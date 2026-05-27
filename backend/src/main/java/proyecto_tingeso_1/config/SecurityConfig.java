@@ -1,5 +1,6 @@
 package proyecto_tingeso_1.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -18,9 +19,12 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+
 @Configuration
 @EnableMethodSecurity
 public class SecurityConfig {
+    @Value("${cors.origin:http://localhost:8070}")
+    private String corsOrigin;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -52,7 +56,8 @@ public class SecurityConfig {
                 "http://localhost:5173",
                 "http://localhost:3000",
                 "http://localhost",
-                "http://localhost:8070"
+                "http://localhost:8070",
+                corsOrigin
         ));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));

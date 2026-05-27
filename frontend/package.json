@@ -18,7 +18,7 @@
     "axios": "^1.16.0",
     "bootstrap": "^5.3.8",
     "bootstrap-icons": "^1.13.1",
-    "keycloak-js": "^26.2.4",
+    "keycloak-js": "^21.1.2",
     "react": "^19.2.5",
     "react-bootstrap": "^2.10.10",
     "react-dom": "^19.2.5",
