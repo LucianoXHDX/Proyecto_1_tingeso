@@ -43,15 +43,27 @@ function App() {
             <div className="container">
                 <Navbar />
                 <Routes>
+                    {/* public without login*/}
                     <Route path="/" element={<TravelPackages />} />
+
+                    {/* there u need login*/}
                     <Route path="/travel-packages/:id" element={<PrivateRoute element={<TravelPackageDetail />} />} />
+
                     <Route path="/bookings/new/:id" element={<PrivateRoute element={<BookingForm />} />} />
+
                     <Route path="/payments/new/:bookingId" element={<PrivateRoute element={<PaymentForm />} />} />
+
                     <Route path="/bookings/:id" element={<PrivateRoute element={<BookingCheckOut />} />} />
+
                     <Route path="/profile" element={<PrivateRoute element={<ProfilePage />} />} />
+
                     <Route path="/my-bookings" element={<PrivateRoute element={<MyBookingsPage />} />} />
+
+                    {/* these it on ly for admin*/}
                     <Route path="/admin" element={<AdminRoute element={<AdminPage />} />} />
+
                     <Route path="/admin/packages/new" element={<AdminRoute element={<PackageForm />} />} />
+
                 </Routes>
             </div>
         </Router>
