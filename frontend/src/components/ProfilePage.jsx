@@ -18,7 +18,8 @@ const ProfilePage = () => {
             </table>
 
             <button className="btn btn-primary"
-                    onClick={() => window.open(`http://localhost:9090/realms/spring-boot-realm-tingeso/account`, '_blank')}>
+                    onClick={() => window.open(`${import.meta.env.VITE_KEYCLOAK_URL}/realms/${import.meta.env.VITE_KEYCLOAK_REALM}/account`,
+                        '_blank')}>
                 Editar perfil
             </button>
         </div>
