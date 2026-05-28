@@ -16,12 +16,7 @@ const AdminTravelPackagePage = () => {
         travelPackagesService
             .getAll()
             .then((response) => {
-                const availablePackages = response.data.filter(
-                    (travelPackage) =>
-                        travelPackage.availableSlotsPackage > 0
-                        && travelPackage.statusPackage === "DISPONIBLE"
-                );
-                setPackages(availablePackages);
+                setPackages(response.data);
             })
             .catch((error) => {
                 console.log("Error al cargar paquetes:", error);

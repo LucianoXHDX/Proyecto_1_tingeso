@@ -16,7 +16,9 @@ const Navbar = () => {
     return (
         <nav className="navbar navbar-dark bg-dark px-3">
             <span className="navbar-brand" style={{ cursor: 'pointer' }} onClick={() => navigate('/')}>
-                ✈ Tingeso Travel
+                <i class="bi bi-airplane-fill"></i>
+                Tingeso Travel
+                <i class="bi bi-suitcase-fill"></i>
             </span>
             <div className="d-flex gap-2 me-auto ms-3">
                 {isAuthenticated && (

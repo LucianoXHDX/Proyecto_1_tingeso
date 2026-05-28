@@ -9,12 +9,13 @@ const MyBookingsPage = () => {
     const email = keycloak.tokenParsed?.email;
     const [bookings, setBookings] = useState([]);
 
-    useEffect(() => {
+    uuseEffect(() => {
         if (email) {
             bookingService
                 .getByEmail(email)
                 .then((response) => {
-                    setBookings(response);
+                    const data = response.data || response;
+                    setBookings(Array.isArray(data) ? data : []);
                 })
                 .catch((error) => console.log('Error:', error));
         }
