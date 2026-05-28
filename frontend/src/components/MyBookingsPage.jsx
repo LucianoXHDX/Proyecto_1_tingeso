@@ -9,7 +9,7 @@ const MyBookingsPage = () => {
     const email = keycloak.tokenParsed?.email;
     const [bookings, setBookings] = useState([]);
 
-    useEffect(() => {
+    const loadBookings = () => {
         if (email) {
             bookingService
                 .getByEmail(email)
@@ -19,7 +19,24 @@ const MyBookingsPage = () => {
                 })
                 .catch((error) => console.log('Error:', error));
         }
+    };
+
+    useEffect(() => {
+        loadBookings();
     }, []);
+
+    const handleDelete = (id) => {
+        const confirm = window.confirm("¿Seguro que deseas cancelar esta reserva?");
+        if (confirm) {
+            bookingService
+                .remove(id)
+                .then(() => {
+                    console.log("Reserva eliminada");
+                    loadBookings();
+                })
+                .catch((error) => console.log('Error al eliminar:', error));
+        }
+    };
 
     return (
         <div className="container mt-4">
@@ -34,7 +51,7 @@ const MyBookingsPage = () => {
                     <th>Precio final</th>
                     <th>Estado</th>
                     <th>Pagado</th>
-                    <th>Accion</th>
+                    <th>Acciones</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -59,11 +76,18 @@ const MyBookingsPage = () => {
                                     Ver paquete
                                 </button>
                                 {!b.paidBooking && (
-                                    <button
-                                        className="btn btn-success btn-sm"
-                                        onClick={() => navigate(`/bookings/${b.idBooking}`)}>
-                                        Pagar
-                                    </button>
+                                    <>
+                                        <button
+                                            className="btn btn-success btn-sm"
+                                            onClick={() => navigate(`/bookings/${b.idBooking}`)}>
+                                            Pagar
+                                        </button>
+                                        <button
+                                            className="btn btn-danger btn-sm"
+                                            onClick={() => handleDelete(b.idBooking)}>
+                                            Cancelar
+                                        </button>
+                                    </>
                                 )}
                             </div>
                         </td>

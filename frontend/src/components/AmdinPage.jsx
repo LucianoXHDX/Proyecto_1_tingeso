@@ -24,21 +24,10 @@ const AdminPage = () => {
                 <div className="col-md-6">
                     <div className="card h-100 text-card p-4"
                          style={{cursor: 'pointer'}}
-                         onClick={() => navigate('/admin/packages/delete')}>
-                        <div className="card-body">
-                            <MdDeleteForever />
-                            <h5 className="card-title mt-2">Elimina un paquete</h5>
-                        </div>
-                    </div>
-                </div>
-
-                <div className="col-md-6">
-                    <div className="card h-100 text-card p-4"
-                         style={{cursor: 'pointer'}}
                          onClick={() => navigate('/admin/packages')}>
                         <div className="card-body">
                             <MdOutlineTableChart />
-                            <h5 className="card-title mt-2">Ver todos los paquetes</h5>
+                            <h5 className="card-title mt-2">Aministracion de todos lo paquetes</h5>
                         </div>
                     </div>
                 </div>
