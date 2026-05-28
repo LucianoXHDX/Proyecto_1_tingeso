@@ -13,6 +13,7 @@ import PackageForm from "./components/PackageForm.jsx";
 import ProfilePage from './components/ProfilePage.jsx';
 import MyBookingsPage from './components/MyBookingsPage.jsx';
 import AdminTravelPackagePage from './components/AdminTravelPackagePage.jsx';
+import Background from "./components/Background.jsx";
 
 
 function App() {
@@ -42,6 +43,7 @@ function App() {
 
     return (
         <Router>
+            <Background>
             <div className="container">
                 <Navbar />
                 <Routes>
@@ -70,6 +72,7 @@ function App() {
 
                 </Routes>
             </div>
+            </Background>
         </Router>
     );
 }

@@ -49,7 +49,6 @@ const MyBookingsPage = () => {
                     <th>Paquete</th>
                     <th>Pasajeros</th>
                     <th>Precio final</th>
-                    <th>Estado</th>
                     <th>Pagado</th>
                     <th>Acciones</th>
                 </tr>
@@ -61,7 +60,7 @@ const MyBookingsPage = () => {
                         <td>{b.packageName}</td>
                         <td>{b.numberOfPassengers}</td>
                         <td>${b.discountedPriceBooking?.toLocaleString()} CLP</td>
-                        <td>{b.bookingStatus}</td>
+
                         <td>
                             {b.paidBooking ?
                                 <span className="badge bg-success">Sí</span> :
@@ -95,7 +94,7 @@ const MyBookingsPage = () => {
                 ))}
                 {bookings.length === 0 && (
                     <tr>
-                        <td colSpan={7} className="text-center text-muted">
+                        <td colSpan={6} className="text-center text-muted">
                             No tienes reservas aún
                         </td>
                     </tr>
