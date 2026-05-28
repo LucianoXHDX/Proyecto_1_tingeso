@@ -58,9 +58,18 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public void deleteBooking(Long id){
-        if(!bookingRepository.existsById(id)){
-            throw new RuntimeException("No hay una resreva asociada a ese id");
+        BookingEntity booking = bookingRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("No hay una reserva asociada a ese id"));
+
+        TravelPackagesEntity travelPackage = booking.getTravelPackagesEntity();
+        travelPackage.setAvailableSlotsPackage(
+                travelPackage.getAvailableSlotsPackage() + booking.getNumberOfPassengers()
+        );
+        if (travelPackage.getStatusPackage() == EnumStatusPackage.AGOTADO) {
+            travelPackage.setStatusPackage(EnumStatusPackage.DISPONIBLE);
         }
+        travelPackagesRepository.save(travelPackage);
+
         bookingRepository.deleteById(id);
     }
 
