@@ -63,14 +63,14 @@ function App() {
                     <Route path="/profile" element={<PrivateRoute element={<ProfilePage />} />} />
 
                     <Route path="/my-bookings" element={<PrivateRoute element={<MyBookingsPage />} />} />
-                    </Background>
+
                     {/* these it on ly for admin*/}
                     <Route path="/admin" element={<AdminRoute element={<AdminPage />} />} />
 
                     <Route path="/admin/packages/new" element={<AdminRoute element={<PackageForm />} />} />
 
                     <Route path="/admin/packages" element={<AdminRoute element={<AdminTravelPackagePage />} />} />
-
+                    </Background>
                 </Routes>
             </div>
 
