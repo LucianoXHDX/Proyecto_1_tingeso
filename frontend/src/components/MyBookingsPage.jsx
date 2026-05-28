@@ -9,7 +9,7 @@ const MyBookingsPage = () => {
     const email = keycloak.tokenParsed?.email;
     const [bookings, setBookings] = useState([]);
 
-    uuseEffect(() => {
+    useEffect(() => {
         if (email) {
             bookingService
                 .getByEmail(email)
