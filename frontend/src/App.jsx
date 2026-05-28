@@ -43,10 +43,11 @@ function App() {
 
     return (
         <Router>
-            <Background>
+
             <div className="container">
                 <Navbar />
                 <Routes>
+                    <Background>
                     {/* public without login*/}
                     <Route path="/" element={<TravelPackages />} />
 
@@ -62,7 +63,7 @@ function App() {
                     <Route path="/profile" element={<PrivateRoute element={<ProfilePage />} />} />
 
                     <Route path="/my-bookings" element={<PrivateRoute element={<MyBookingsPage />} />} />
-
+                    </Background>
                     {/* these it on ly for admin*/}
                     <Route path="/admin" element={<AdminRoute element={<AdminPage />} />} />
 
@@ -72,7 +73,7 @@ function App() {
 
                 </Routes>
             </div>
-            </Background>
+
         </Router>
     );
 }

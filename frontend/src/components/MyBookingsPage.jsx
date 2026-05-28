@@ -40,7 +40,9 @@ const MyBookingsPage = () => {
 
     return (
         <div className="container mt-4">
+            <div className="bg-white bg-opacity-75 rounded p-3 mb-3 d-inline-block">
             <h2>Mis Reservas</h2>
+            </div>
             <hr />
             <table className="table table-striped table-bordered">
                 <thead className="table-dark">
@@ -95,7 +97,9 @@ const MyBookingsPage = () => {
                 {bookings.length === 0 && (
                     <tr>
                         <td colSpan={6} className="text-center text-muted">
+                            <div className="bg-white bg-opacity-75 rounded p-3 mb-3 d-inline-block">
                             No tienes reservas aún
+                            </div>
                         </td>
                     </tr>
                 )}
