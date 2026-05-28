@@ -49,7 +49,9 @@ const TravelPackages = () => {
 
     return (
         <div className="container mt-4">
+            <div className="bg-white bg-opacity-90 rounded p-3 mb-3 d-inline-block">
             <h2>Paquetes de Viaje</h2>
+            </div>
             <br />
             <table className="table table-striped table-bordered">
                 <thead className="table-dark">
@@ -77,7 +79,9 @@ const TravelPackages = () => {
                                 className="btn btn-info btn-sm"
                                 onClick={() => navigate(`/travel-packages/${pkg.idPackage}`)}
                             >
+                                <div className="bg-white bg-opacity-90 rounded p-3 mb-3 d-inline-block">
                                 Ver más
+                                </div>
                             </button>
 
                         </td>

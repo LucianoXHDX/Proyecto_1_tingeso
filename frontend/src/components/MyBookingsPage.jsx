@@ -106,7 +106,9 @@ const MyBookingsPage = () => {
                 </tbody>
             </table>
             <button className="btn btn-secondary mt-2" onClick={() => navigate('/')}>
+                <i class="bi bi-arrow-left"></i>
                 Volver
+
             </button>
         </div>
     );

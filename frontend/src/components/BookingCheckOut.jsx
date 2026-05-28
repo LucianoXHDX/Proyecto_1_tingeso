@@ -19,7 +19,9 @@ const BookingCheckOut = () => {
 
     return (
         <div className="container mt-4" style={{ maxWidth: '600px' }}>
+            <div className="bg-white bg-opacity-90 rounded p-3 mb-3 d-inline-block">
             <h2>Resumen de tu Reserva</h2>
+            </div>
             <hr />
 
             <table className="table table-bordered">

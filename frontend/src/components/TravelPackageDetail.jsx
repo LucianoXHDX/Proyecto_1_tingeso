@@ -37,10 +37,12 @@ const TravelPackageDetail = () => {
     return (
         <div className="container mt-4">
             <button className="btn btn-secondary mb-3" onClick={() => navigate('/')}>
-                volver
+                <i class="bi bi-arrow-left"></i>
+                    volver
             </button>
-
+            <div className="bg-white bg-opacity-90 rounded p-3 mb-3 d-inline-block">
             <h2>{pkg.namePackage}</h2>
+            </div>
             <hr />
 
             <table className="table table-bordered">

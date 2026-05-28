@@ -107,10 +107,11 @@ const PaymentForm = () => {
     return (
         <div className="container mt-4" style={{ maxWidth: '500px' }}>
             <button className="btn btn-secondary mb-3" onClick={() => navigate(-1)}>
-                ← Volver
+                <i class="bi bi-arrow-left"></i> Volver
             </button>
-
+            <div className="bg-white bg-opacity-90 rounded p-3 mb-3 d-inline-block">
             <h2>Datos de Pago</h2>
+            </div>
 
             {booking && (
                 <div className="alert alert-info mb-3">

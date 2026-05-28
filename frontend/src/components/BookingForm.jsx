@@ -78,10 +78,12 @@ const BookingForm = () => {
     return (
         <div className="container mt-4">
             <button className="btn btn-secondary mb-3" onClick={() => navigate(-1)}>
-                ← Volver
+                <i class="bi bi-arrow-left"></i>
+                    Volver
             </button>
-
+            <div className="bg-white bg-opacity-90 rounded p-3 mb-3 d-inline-block">
             <h2>Crear Reserva</h2>
+            </div>
             <hr />
 
             {error && <div className="alert alert-danger">{error}</div>}
