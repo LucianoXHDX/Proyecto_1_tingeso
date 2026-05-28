@@ -43,11 +43,11 @@ function App() {
 
     return (
         <Router>
-
+            <Background>
             <div className="container">
                 <Navbar />
                 <Routes>
-                    <Background>
+
                     {/* public without login*/}
                     <Route path="/" element={<TravelPackages />} />
 
@@ -70,9 +70,9 @@ function App() {
                     <Route path="/admin/packages/new" element={<AdminRoute element={<PackageForm />} />} />
 
                     <Route path="/admin/packages" element={<AdminRoute element={<AdminTravelPackagePage />} />} />
-                    </Background>
                 </Routes>
             </div>
+        </Background>
 
         </Router>
     );
