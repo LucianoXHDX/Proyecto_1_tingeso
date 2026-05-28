@@ -14,8 +14,7 @@ const MyBookingsPage = () => {
             bookingService
                 .getByEmail(email)
                 .then((response) => {
-                    const pagadas = response.data.filter((b) => b.paidBooking === true);
-                    setBookings(pagadas);
+                    setBookings(response);
                 })
                 .catch((error) => console.log('Error:', error));
         }
@@ -45,19 +44,33 @@ const MyBookingsPage = () => {
                         <td>{b.numberOfPassengers}</td>
                         <td>${b.discountedPriceBooking?.toLocaleString()} CLP</td>
                         <td>{b.bookingStatus}</td>
-                        <td>pagado </td>
                         <td>
-                            <button
-                                className="btn btn-info btn-sm"
-                                onClick={() => navigate(`/travel-packages/${b.travelPackageId}`)}>
-                                    Ver mas
+                            {b.paidBooking ?
+                                <span className="badge bg-success">Sí</span> :
+                                <span className="badge bg-warning text-dark">Pendiente</span>
+                            }
+                        </td>
+                        <td>
+                            <div className="d-flex gap-2">
+                                <button
+                                    className="btn btn-info btn-sm"
+                                    onClick={() => navigate(`/travel-packages/${b.travelPackageId}`)}>
+                                    Ver paquete
+                                </button>
+                                {!b.paidBooking && (
+                                    <button
+                                        className="btn btn-success btn-sm"
+                                        onClick={() => navigate(`/bookings/${b.idBooking}`)}>
+                                        Pagar
                                     </button>
-                            </td>
+                                )}
+                            </div>
+                        </td>
                     </tr>
                 ))}
                 {bookings.length === 0 && (
                     <tr>
-                        <td colSpan={6} className="text-center text-muted">
+                        <td colSpan={7} className="text-center text-muted">
                             No tienes reservas aún
                         </td>
                     </tr>
@@ -65,7 +78,7 @@ const MyBookingsPage = () => {
                 </tbody>
             </table>
             <button className="btn btn-secondary mt-2" onClick={() => navigate('/')}>
-                 Volver
+                Volver
             </button>
         </div>
     );

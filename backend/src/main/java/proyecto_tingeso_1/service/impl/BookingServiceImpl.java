@@ -51,10 +51,9 @@ public class BookingServiceImpl implements BookingService {
     public List<BookingResponseDTO> getBookingsByEmail(String email) {
         List<BookingEntity> bookings = bookingRepository.findByEmailClientBooking(email);
         return bookings.stream()
-                .map(this::mapToDTO)
+                .map(booking -> this.mapToDTO(booking))
                 .collect(Collectors.toList());
     }
-
 
 
     @Override
@@ -65,72 +64,77 @@ public class BookingServiceImpl implements BookingService {
         bookingRepository.deleteById(id);
     }
 
-@Override
-        public BookingResponseDTO createBooking(BookingRequestDTO bookingRequestDTO){
-            TravelPackagesEntity travelPackages = travelPackagesRepository
-                    .findById(bookingRequestDTO.getTravelPackageId())
-                    .orElseThrow(()-> new RuntimeException("paquete no ecnotrado"));
+    @Override
+    public BookingResponseDTO createBooking(BookingRequestDTO bookingRequestDTO){
+        TravelPackagesEntity travelPackages = travelPackagesRepository
+                .findById(bookingRequestDTO.getTravelPackageId())
+                .orElseThrow(()-> new RuntimeException("paquete no ecnotrado"));
 
 
 
-            if(travelPackages.getStatusPackage() != EnumStatusPackage.DISPONIBLE){
-                throw new RuntimeException("Packete no disponible en este momento");
-            }
-            int numberOfPassenger = bookingRequestDTO.getNumberOfPassanger();
+        if(travelPackages.getStatusPackage() != EnumStatusPackage.DISPONIBLE){
+            throw new RuntimeException("Packete no disponible en este momento");
+        }
+        int numberOfPassenger = bookingRequestDTO.getNumberOfPassanger();
 
-            if(numberOfPassenger > travelPackages.getAvailableSlotsPackage()){
-                throw new RuntimeException("La cantidad de pasajeros supera los cupos disponibles.");
-            }
+        if(numberOfPassenger > travelPackages.getAvailableSlotsPackage()){
+            throw new RuntimeException("La cantidad de pasajeros supera los cupos disponibles.");
+        }
 
+        travelPackages.setAvailableSlotsPackage(travelPackages.getAvailableSlotsPackage() - numberOfPassenger);
+        if(travelPackages.getAvailableSlotsPackage() == 0){
+            travelPackages.setStatusPackage(EnumStatusPackage.AGOTADO);
+        }
+        travelPackagesRepository.save(travelPackages);
 
-            BookingEntity bookingEntity = new BookingEntity();
-            int originalPrice = travelPackages.getPricePackage() * numberOfPassenger;
-            if(numberOfPassenger >= 4 ) {
+        BookingEntity bookingEntity = new BookingEntity();
+        int originalPrice = travelPackages.getPricePackage() * numberOfPassenger;
+        if(numberOfPassenger >= 4 ) {
             bookingEntity.setDiscountPercentage(10);
             int discountedPriceBooking = (int) (originalPrice * 0.90);
             bookingEntity.setDiscountedPriceBooking(discountedPriceBooking);
             bookingEntity.setDiscountTypeBooking("Descuento por gente");
 
-            }else {
-                bookingEntity.setDiscountPercentage(0);
-                bookingEntity.setDiscountedPriceBooking(originalPrice);
-                bookingEntity.setDiscountTypeBooking("NONE");
-            }
-
-            bookingEntity.setEmailClientBooking(bookingRequestDTO.getEmailClientBooking());
-            bookingEntity.setPassengerRuts(bookingRequestDTO.getPassangerRuts());
-            bookingEntity.setNumberOfPassengers(numberOfPassenger);
-            bookingEntity.setPreferencePassengerBooking(bookingRequestDTO.getPreferencePassangerBooking());
-            bookingEntity.setTravelPackagesEntity(travelPackages);
-            bookingEntity.setOriginalPriceBooking(originalPrice);
-
-
-            bookingEntity.setPaidBooking(false);
-            bookingEntity.setBookingStatus(EnumStatusBooking.PENDING);
-
-            BookingEntity saved = bookingRepository.save(bookingEntity);
-
-            //now i need make a dto response to show in front
-
-            return new BookingResponseDTO(
-                    saved.getIdBooking(),
-                    saved.getEmailClientBooking(),
-                    saved.getPassengerRuts(),
-                    saved.getNumberOfPassengers(),
-                    saved.getPreferencePassengerBooking(),
-                    saved.getTravelPackagesEntity().getIdPackage(),
-                    saved.getTravelPackagesEntity().getNamePackage(),
-                    saved.getOriginalPriceBooking(),
-                    saved.getDiscountedPriceBooking(),
-                    saved.getDiscountPercentage(),
-                    saved.getDiscountTypeBooking(),
-                    saved.getPaidBooking(),
-                    saved.getBookingStatus().name(),
-                    null
-            );
-
-
+        }else {
+            bookingEntity.setDiscountPercentage(0);
+            bookingEntity.setDiscountedPriceBooking(originalPrice);
+            bookingEntity.setDiscountTypeBooking("NONE");
         }
+
+        bookingEntity.setEmailClientBooking(bookingRequestDTO.getEmailClientBooking());
+        bookingEntity.setPassengerRuts(bookingRequestDTO.getPassangerRuts());
+        bookingEntity.setNumberOfPassengers(numberOfPassenger);
+        bookingEntity.setPreferencePassengerBooking(bookingRequestDTO.getPreferencePassangerBooking());
+        bookingEntity.setTravelPackagesEntity(travelPackages);
+        bookingEntity.setOriginalPriceBooking(originalPrice);
+
+
+        bookingEntity.setPaidBooking(false);
+        bookingEntity.setBookingStatus(EnumStatusBooking.PENDING);
+
+        BookingEntity saved = bookingRepository.save(bookingEntity);
+
+        //now i need make a dto response to show in front
+
+        return new BookingResponseDTO(
+                saved.getIdBooking(),
+                saved.getEmailClientBooking(),
+                saved.getPassengerRuts(),
+                saved.getNumberOfPassengers(),
+                saved.getPreferencePassengerBooking(),
+                saved.getTravelPackagesEntity().getIdPackage(),
+                saved.getTravelPackagesEntity().getNamePackage(),
+                saved.getOriginalPriceBooking(),
+                saved.getDiscountedPriceBooking(),
+                saved.getDiscountPercentage(),
+                saved.getDiscountTypeBooking(),
+                saved.getPaidBooking(),
+                saved.getBookingStatus().name(),
+                null
+        );
+
+
+    }
 
 
 
