@@ -37,7 +37,7 @@ const PaymentForm = () => {
             setError('El CVV debe tener 3 dígitos');
             return;
         }
-        if (form.cardExpirationPayment === '' || form.cardExpirationPayment.toString().length !== 6 ) {
+        if (form.cardExpirationPayment === '' || form.cardExpirationPayment.toString().length !== 7 ) {
             setError('Por favor ingresa la fecha de vencimiento valida');
             return;
         }
