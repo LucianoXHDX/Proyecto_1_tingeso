@@ -65,7 +65,7 @@ const TravelPackageDetail = () => {
                 </tbody>
             </table>
             <button className="btn btn-primary mb-3" onClick={() => navigate(`/bookings/new/${pkg.idPackage}`)}>
-                resrevar
+                reservar
             </button>
 
         </div>

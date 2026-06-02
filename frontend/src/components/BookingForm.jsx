@@ -140,7 +140,7 @@ const BookingForm = () => {
                     className="btn btn-primary"
                     onClick={handleSubmit}
                     disabled={saving}>
-                    {saving ? 'Procesando...' : 'continuar con la cotizacion'}
+                    {saving ? 'Procesando...' : 'continuar con la cotización'}
                 </button>
                 <button className="btn btn-secondary" onClick={() => navigate(-1)}>
                     Cancelar

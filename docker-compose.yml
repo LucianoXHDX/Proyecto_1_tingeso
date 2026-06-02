@@ -23,8 +23,8 @@
         - KC_DB_PASSWORD=postgres
         - KC_BOOTSTRAP_ADMIN_USERNAME=admin
         - KC_BOOTSTRAP_ADMIN_PASSWORD=admin
-        - KC_HOSTNAME_URL=http://32.196.145.242:9090
-        - KC_HOSTNAME_ADMIN_URL=http://32.196.145.242:9090
+        - KC_HOSTNAME_URL=http://32.198.57.69:9090
+        - KC_HOSTNAME_ADMIN_URL=http://32.198.57.69:9090
         - KC_HOSTNAME_STRICT=false
         - KC_HOSTNAME_STRICT_HTTPS=false
         - KC_HTTP_ENABLED=true
@@ -49,7 +49,7 @@
         - DB_PASSWORD=postgres
         - KCK_JWK_URL=http://keycloak:8080
         - KCK_REALM=spring-boot-realm-tingeso
-        - CORS_ORIGIN=http://32.196.145.242:8070
+        - CORS_ORIGIN=http://32.198.57.69:8070
       depends_on:
         - postgres
         - keycloak
@@ -67,7 +67,7 @@
         - DB_PASSWORD=postgres
         - KCK_JWK_URL=http://keycloak:8080
         - KCK_REALM=spring-boot-realm-tingeso
-        - CORS_ORIGIN=http://32.196.145.242:8070
+        - CORS_ORIGIN=http://32.198.57.69:8070
       depends_on:
         - postgres
         - keycloak
@@ -85,7 +85,7 @@
         - DB_PASSWORD=postgres
         - KCK_JWK_URL=http://keycloak:8080
         - KCK_REALM=spring-boot-realm-tingeso
-        - CORS_ORIGIN=http://32.196.145.242:8070
+        - CORS_ORIGIN=http://32.198.57.69:8070
       depends_on:
         - postgres
         - keycloak
