@@ -14,6 +14,9 @@ const ProfilePage = () => {
                 <tr><th>Email</th><td>{token?.email}</td></tr>
                 <tr><th>Nombre</th><td>{token?.given_name}</td></tr>
                 <tr><th>Apellido</th><td>{token?.family_name}</td></tr>
+                <tr><th>Numero de telefono</th><td>{token?.phone}</td></tr>
+                <tr><th>Nacionalidad</th><td>{token?.nacionalidad}</td></tr>
+                <tr><th>rut</th><td>{token?.rut}</td></tr>
                 </tbody>
             </table>
 
