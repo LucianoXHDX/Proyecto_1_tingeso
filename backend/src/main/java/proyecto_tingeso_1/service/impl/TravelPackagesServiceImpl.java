@@ -54,15 +54,17 @@ public class TravelPackagesServiceImpl implements TravelPackagesService {
     }
 
     @Override
+
     public void deleteById(Long id) {
-        if (!travelPackagesRepository.existsById(id)) {
-            throw new RuntimeException("TravelPackage no encontrado con id: " + id);
+            TravelPackagesEntity pkg = travelPackagesRepository.findById(id)
+                    .orElseThrow(() -> new RuntimeException("TravelPackage no encontrado con id: " + id));
+
+            if (!pkg.getBookingEntities().isEmpty()) {
+                throw new RuntimeException("NO SE PUEDE ELIMINAR el paquete porque tiene reservas asociadas");
+            }
+
+            travelPackagesRepository.deleteById(id);
         }
-        if (!travelPackagesRepository.getBookingEntities().isEmpty()) {
-            throw new RuntimeException("No se puede eliminar el paquete porque tiene reservas asociadas");
-        }
-        travelPackagesRepository.deleteById(id);
-    }
 
     @Override
     public TravelPackagesEntity update(Long id, TravelPackagesDTO dto) {
