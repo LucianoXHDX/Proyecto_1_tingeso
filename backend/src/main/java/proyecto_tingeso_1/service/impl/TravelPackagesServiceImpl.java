@@ -58,6 +58,9 @@ public class TravelPackagesServiceImpl implements TravelPackagesService {
         if (!travelPackagesRepository.existsById(id)) {
             throw new RuntimeException("TravelPackage no encontrado con id: " + id);
         }
+        if (!travelPackagesRepository.getBookingEntities().isEmpty()) {
+            throw new RuntimeException("No se puede eliminar el paquete porque tiene reservas asociadas");
+        }
         travelPackagesRepository.deleteById(id);
     }
 
@@ -82,7 +85,10 @@ public class TravelPackagesServiceImpl implements TravelPackagesService {
 
         return travelPackagesRepository.save(entity);
     }
-
+    @Override
+    public boolean hasBookings(Long id) {
+        return travelPackagesRepository.hasBookings(id);
+    }
 
 
 }

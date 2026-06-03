@@ -34,12 +34,12 @@ public class TravelPackagesEntity {
     private Set<String> includedServicesPackage;
     private String travelConditionsPackage;
     private int availableSlotsPackage;
-    // esto igual deberia se con un enums que permite la validacion de los datos entregado
+
     private String travelType;
 
     @Enumerated(EnumType.STRING)
     private EnumSeason enumSeason;
-    // categoria tambien o si no el front jugar con botones o lista como fingeso
+
     private String categoryPackage;
 
     @Enumerated(EnumType.STRING)

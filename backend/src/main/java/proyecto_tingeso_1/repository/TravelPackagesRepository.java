@@ -1,6 +1,8 @@
 package proyecto_tingeso_1.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import proyecto_tingeso_1.Enums.EnumStatusPackage;
 import proyecto_tingeso_1.entity.TravelPackagesEntity;
 
@@ -14,6 +16,9 @@ public interface TravelPackagesRepository extends JpaRepository<TravelPackagesEn
     List<TravelPackagesEntity> findByDestinationPackageContainingIgnoreCase(String destination);
     // whit this i can find by status(can be DISPONIBLE,AGOTADOO,NOVIGENTE,CANCELADO;) of package
     List<TravelPackagesEntity> findByStatusPackage(EnumStatusPackage status);
+
+    @Query("SELECT COUNT(b) > 0 FROM BookingEntity b WHERE b.travelPackagesEntity.idPackage = :id")
+    boolean hasBookings(@Param("id") Long id);
 
 
 }

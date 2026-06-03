@@ -27,18 +27,15 @@ const AdminTravelPackagePage = () => {
         init();
     }, []);
 
-    const handleDelete = (id) => {
-        const confirmDelete = window.confirm("¿Seguro que desea eliminar este paquete?");
-        if (confirmDelete) {
-            travelPackagesService
-                .remove(id)
-                .then(() => {
-                    console.log("Paquete eliminado");
-                    init();
-                })
-                .catch((error) => {
-                    console.log("Error al eliminar:", error);
-                });
+    const handleDelete = async (id) => {
+        const { data: hasBookings } = await travelPackagesService.hasBookings(id);
+        if (hasBookings) {
+            alert("NO SE PUEDE ELIMINAR — el paquete tiene reservas asociadas");
+            return;
+        }
+        const confirm = window.confirm("Seguro que deseas eliminar este paquete?");
+        if (confirm) {
+            travelPackagesService.remove(id).then(() => init());
         }
     };
 

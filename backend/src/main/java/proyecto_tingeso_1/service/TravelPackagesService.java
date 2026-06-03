@@ -23,7 +23,7 @@ Optional<TravelPackagesEntity> findById(Long id);
 TravelPackagesEntity update(Long id, TravelPackagesDTO dto);
 // D-> delete
 void deleteById(Long id);
-
+boolean hasBookings(Long id);
 
 
 
